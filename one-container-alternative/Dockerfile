@@ -105,7 +105,7 @@ RUN groupadd --gid 1000 developer \
         ${YS_DIST}
 
 WORKDIR /home/developer/src
-USER developer 
+USER developer
 
 ENTRYPOINT ["/yangsuite/start_environment.sh"]
 CMD tail -f /dev/null 
