@@ -26,5 +26,5 @@ fi
 echo "from django.contrib.auth.models import User; User.objects.create_superuser('${YS_ADMIN_USER}', '${YS_ADMIN_EMAIL}', '${YS_ADMIN_PASS}')" | ${PY} ${YS_DIR}/manage.py shell
 
 echo "Starting uwsgi..."
-uwsgi --ini /yangsuite/uwsgi.ini 
+uwsgi --ini /build-assets/uwsgi.ini 
 echo "uwsgi started with exit code $?"
