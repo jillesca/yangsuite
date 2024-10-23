@@ -18,6 +18,7 @@ RUN apt-get update -y \
     && apt-get clean \
     && rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/*
 
+
 # stage for python dependencies
 FROM base as python_dependencies
 
@@ -30,6 +31,7 @@ ARG PIP_DISABLE_PIP_VERSION_CHECK=1
 COPY config/python_dependencies/requirements.txt /tmp/requirements.txt
 
 RUN pip install --upgrade -r /tmp/requirements.txt 
+
 
 # stage for yangsuite setup
 FROM python_dependencies as app_setup
@@ -54,26 +56,30 @@ ENV DJANGO_STATIC_ROOT=${STATIC_ROOT}
 COPY config/build-assets/ /build-assets
 
 RUN groupadd --gid 1000 developer \
-    && useradd --create-home --home-dir /home/developer --no-user-group \
-    --no-log-init --groups developer --shell /bin/bash developer \
+    && useradd \
+        --create-home \
+        --home-dir /home/developer \
+        --no-user-group \
+        --no-log-init  \
+        --groups developer  \
+        --shell /bin/bash developer \
     && echo 'alias ll="ls -al"' >> /root/.bashrc \
     && echo 'alias ll="ls -al"' >> /home/developer/.bashrc \
     && mkdir -p ${MEDIA_ROOT} \
     && mkdir -p ${STATIC_ROOT} \
     && mkdir -p /var/run/uwsgi/ \
-    && mkdir -p /home/developer/src \
     && chmod u+s /bin/ping \
     && chmod +x /build-assets/migrate_and_start.sh \
     && ln -snf /usr/share/zoneinfo/${CONTAINER_TIMEZONE} /etc/localtime \
     && echo ${CONTAINER_TIMEZONE} > /etc/timezone \
     && YS_DIR=$(pip show yangsuite | grep "^Location"|cut -d" " -f 2)/yangsuite \
     && yangsuite \
-    --save-settings \
-    --configure-only \
-    --data-path ${MEDIA_ROOT} \
-    --static-root ${STATIC_ROOT} \
-    --allowed-hosts localhost \
-    --settings yangsuite.settings.production \
+        --save-settings \
+        --configure-only \
+        --data-path ${MEDIA_ROOT} \
+        --static-root ${STATIC_ROOT} \
+        --allowed-hosts localhost \
+        --settings yangsuite.settings.production \
     && chown -R developer:developer \
         /var/run/ \
         /var/log/ \
