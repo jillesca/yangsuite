@@ -36,7 +36,20 @@ FROM python_dependencies as app_setup
 
 EXPOSE 80 443 3000 8080 8086 9339 50051 50052 57345 57344
 
-ENV DOCKER_RUN=true
+ARG YS_ADMIN_USER=developer
+ARG YS_ADMIN_PASS=developer
+ARG YS_ADMIN_EMAIL=developer@example.com
+
+ENV DOCKER_RUN=true \
+    MEDIA_ROOT=/ys-data/ \
+    STATIC_ROOT=/ys-static/ \
+    DJANGO_ALLOWED_HOSTS=localhost \
+    YS_ADMIN_USER=${YS_ADMIN_USER} \
+    YS_ADMIN_PASS=${YS_ADMIN_PASS} \
+    YS_ADMIN_EMAIL=${YS_ADMIN_EMAIL} \
+    DJANGO_SETTINGS_MODULE=yangsuite.settings.production
+
+ENV DJANGO_STATIC_ROOT=${STATIC_ROOT} 
 
 COPY config/build-assets/ /build-assets
 
@@ -45,32 +58,31 @@ RUN groupadd --gid 1000 developer \
     --no-log-init --groups developer --shell /bin/bash developer \
     && echo 'alias ll="ls -al"' >> /root/.bashrc \
     && echo 'alias ll="ls -al"' >> /home/developer/.bashrc \
-    && mkdir -p /ys-data \
-    && mkdir -p /ys-static \
+    && mkdir -p ${MEDIA_ROOT} \
+    && mkdir -p ${STATIC_ROOT} \
     && mkdir -p /var/run/uwsgi/ \
     && mkdir -p /home/developer/src \
     && chmod u+s /bin/ping \
     && chmod +x /build-assets/migrate_and_start.sh \
-    && chmod +x /build-assets/start_environment.sh \
     && ln -snf /usr/share/zoneinfo/${CONTAINER_TIMEZONE} /etc/localtime \
-    && YS_DIR=$(pip show yangsuite | grep "^Location"|cut -d" " -f 2)/yangsuite \
     && echo ${CONTAINER_TIMEZONE} > /etc/timezone \
+    && YS_DIR=$(pip show yangsuite | grep "^Location"|cut -d" " -f 2)/yangsuite \
     && yangsuite \
     --save-settings \
     --configure-only \
-    --data-path /ys-data \
-    --static-root /ys-static \
+    --data-path ${MEDIA_ROOT} \
+    --static-root ${STATIC_ROOT} \
     --allowed-hosts localhost \
     --settings yangsuite.settings.production \
     && chown -R developer:developer \
         /var/run/ \
         /var/log/ \
-        /ys-data/ \
-        /ys-static/ \
+        ${MEDIA_ROOT} \
+        ${STATIC_ROOT} \
         /build-assets/ \
         ${YS_DIR}
 
 USER developer
 
-ENTRYPOINT ["/build-assets/start_environment.sh"]
+ENTRYPOINT ["/build-assets/migrate_and_start.sh"]
 CMD tail -f /dev/null 
