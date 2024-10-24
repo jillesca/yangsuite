@@ -36,7 +36,7 @@ RUN pip install --upgrade -r /tmp/requirements.txt
 # stage for yangsuite setup
 FROM python_dependencies as app_setup
 
-EXPOSE 80 443 3000 8080 8086 9339 50051 50052 57345 57344
+EXPOSE 443 3000 8080 8086 8443 8480 9339 50051 50052 57344 57345
 
 ARG YS_ADMIN_USER=developer
 ARG YS_ADMIN_PASS=developer
