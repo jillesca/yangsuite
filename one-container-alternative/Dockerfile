@@ -7,6 +7,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update -y \
     && apt-get install -yq \
+      inotify-tools \
       iputils-ping \
       lsb-release \
       net-tools \
@@ -69,6 +70,7 @@ RUN groupadd --gid 1000 developer \
     && mkdir -p ${STATIC_ROOT} \
     && mkdir -p /var/run/uwsgi/ \
     && chmod u+s /bin/ping \
+    && chmod +x /build-assets/monitor_logs.sh \
     && chmod +x /build-assets/migrate_and_start.sh \
     && ln -snf /usr/share/zoneinfo/${CONTAINER_TIMEZONE} /etc/localtime \
     && echo ${CONTAINER_TIMEZONE} > /etc/timezone \
