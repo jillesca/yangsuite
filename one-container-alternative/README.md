@@ -6,16 +6,16 @@ This alternative is intended for _experimentation_ on a **local machine** and no
 
 ## Advantages
 
-- Fewer points of failure: One container for all YANG Suite requirements.
-- No user input required: Configuration settings are preset.
-- No Docker Compose needed: Only Docker commands are used.
+- Fewer points of failure. One container for all YANG Suite requirements.
+- No user input required. Configuration settings are preset.
+- No Docker Compose needed. Only Docker commands are used.
+- `nginx` server removed.
 
 ## Limitations
 
-- No `HTTPs` support for accessing the YANG Suite Front end.
 - No Backup cron job.
-- No `nginx` server.
 - No support for certificates.
+- No `HTTPs` support for accessing the YANG Suite Front end.
 
 ## Prerequisites
 
@@ -24,12 +24,14 @@ This alternative is intended for _experimentation_ on a **local machine** and no
 
 ## Build
 
-> [!IMPORTANT]
-> The rest of the commands assume you are executing the commands from inside the `one-container-alternative` directory.
+To start building the container, go to `one-container-alternative` directory first.
 
 ```bash
 cd one-container-alternative
 ```
+
+> [!IMPORTANT]
+> The rest of the commands assume you are executing the commands from inside the `one-container-alternative` directory.
 
 Then run:
 
@@ -47,11 +49,11 @@ make run
 
 Then visit <http://localhost:8480>, accept the EULA, and use `developer/developer` to enter YANG Suite.
 
-Volumes are used to store the YANG Suite `ys-data` directory, where settings and data are stored.
+The named volume `yangsuite-one-container-data` is used to store the YANG Suite `ys-data` directory, where settings and data are stored.
 
 ## Development
 
-`uwsgi` is used as `http` server, you can open ports on the [uwsgi ini file.](config/build-assets/uwsgi.ini#L24)
+`uwsgi` is used as `http` server for YANG Suite front end, you can open ports on the [uwsgi ini file.](config/build-assets/uwsgi.ini#L24)
 
 You can pass the environment variables `YS_ADMIN_USER`, `YS_ADMIN_PASS` and `YS_ADMIN_EMAIL`, to do so, adjust the `make build` command, so they are set at build time.
 
