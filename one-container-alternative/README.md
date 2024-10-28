@@ -51,6 +51,8 @@ Then visit <http://localhost:8480>, accept the EULA, and use `developer/develope
 
 The named volume `yangsuite-one-container-data` is used to store the YANG Suite `ys-data` directory, where settings and data are stored.
 
+You can also do `make stop` and `make start`, to `stop` and `start` the container respectively.
+
 ## Development
 
 `uwsgi` is used as `http` server for YANG Suite front end, you can open ports on the [uwsgi ini file.](config/build-assets/uwsgi.ini#L24)
