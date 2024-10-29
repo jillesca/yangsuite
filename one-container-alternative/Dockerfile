@@ -71,9 +71,12 @@ RUN groupadd --gid 1000 developer \
     && mkdir -p ${STATIC_ROOT} \
     && mkdir -p /certificate \
     && chmod u+s /bin/ping \
+    && chmod +x /build-assets/start_daphne.sh \
     && chmod +x /build-assets/monitor_logs.sh \
-    && chmod +x /build-assets/migrate_and_start.sh \
+    && chmod +x /build-assets/pick_certificate.sh \
     && chmod +x /build-assets/start_environment.sh \
+    && chmod +x /build-assets/migrate_and_start.sh \
+    && chmod +x /build-assets/validate_certificate.sh \
     && chmod +x /build-assets/create_self_signed_cert.sh \
     && ./build-assets/create_self_signed_cert.sh \
     && ln -snf /usr/share/zoneinfo/${CONTAINER_TIMEZONE} /etc/localtime \

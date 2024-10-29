@@ -10,12 +10,11 @@ This alternative is intended for _experimentation_ on a **local machine** and no
 - No user input required. Configuration settings are preset.
 - No Docker Compose needed. Only Docker commands are used.
 - `nginx` server removed.
+- Self-signed (dummy) or user provided certificates can be used.
 
 ## Limitations
 
 - No Backup cron job.
-- No support for certificates.
-- No `HTTPs` support for accessing the YANG Suite Front end.
 
 ## Prerequisites
 
@@ -47,7 +46,7 @@ To start YANG Suite and begin using it, run:
 make run
 ```
 
-Then visit <http://localhost:8480>, accept the EULA, and use `developer/developer` to enter YANG Suite.
+Then visit <https://localhost:8480>, accept the EULA, and use `developer/developer` to enter YANG Suite.
 
 The named volume `yangsuite-one-container-data` is used to store the YANG Suite `ys-data` directory, where settings and data are stored.
 
