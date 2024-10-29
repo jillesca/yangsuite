@@ -52,13 +52,31 @@ The named volume `yangsuite-one-container-data` is used to store the YANG Suite 
 
 You can also do `make stop` and `make start`, to `stop` and `start` the container respectively.
 
+## Using Custom Certificates
+
+You can provide your own SSL certificates by creating a `certificate` directory and placing inside it. The [container will look](/one-container-alternative/build-assets/pick_certificate.sh#L5) for `.crt` and `.key` files in this directory. If both files are found, they will be used for HTTPS. If no user-provided certificates are found, the container [will fall back to using self-signed](/one-container-alternative/build-assets/pick_certificate.sh#L21) (dummy) certificates.
+
+Steps to Use Custom Certificates.
+
+- Create a `certificate` directory (inside the `one-container-alternative` directory).
+- Place your `.crt` and `.key` files in the `certificate` directory.
+- Only one `.crt` and `.key` files are allowed.
+- Ensure the filenames have the `.crt` and `.key` extensions.
+- Run the container using the `make run` command.
+
 ## Development
 
-`uwsgi` is used as `http` server for YANG Suite front end, you can open ports on the [uwsgi ini file.](config/build-assets/uwsgi.ini#L24)
+`daphne` is used as `http` server, `twisted` is used for managing the secure communication for YANG Suite front end.
 
-You can pass the environment variables `YS_ADMIN_USER`, `YS_ADMIN_PASS` and `YS_ADMIN_EMAIL`, to do so, adjust the `make build` command, so they are set at build time.
+You can pass the environment variables `YS_ADMIN_USER`, `YS_ADMIN_PASS` and `YS_ADMIN_EMAIL`, to do so, adjust the `make build` command, so they are set at build time, and pass them as `build-arg`.
 
-You can watch YANG Suite logs using:
+You can watch YANG Suite Front end logs using:
+
+```bash
+make follow
+```
+
+You can watch YANG Suite internal logs using:
 
 ```bash
 make debug
