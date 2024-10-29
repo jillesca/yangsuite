@@ -69,12 +69,13 @@ RUN groupadd --gid 1000 developer \
     && echo 'alias ll="ls -al"' >> /home/developer/.bashrc \
     && mkdir -p ${MEDIA_ROOT} \
     && mkdir -p ${STATIC_ROOT} \
+    && mkdir -p /certificate \
     && chmod u+s /bin/ping \
     && chmod +x /build-assets/monitor_logs.sh \
     && chmod +x /build-assets/migrate_and_start.sh \
     && chmod +x /build-assets/start_environment.sh \
-    && chmod +x /build-assets/create_self_sign_cert.sh \
-    && ./build-assets/create_self_sign_cert.sh \
+    && chmod +x /build-assets/create_self_signed_cert.sh \
+    && ./build-assets/create_self_signed_cert.sh \
     && ln -snf /usr/share/zoneinfo/${CONTAINER_TIMEZONE} /etc/localtime \
     && echo ${CONTAINER_TIMEZONE} > /etc/timezone \
     && YS_DIR=$(pip show yangsuite | grep "^Location"|cut -d" " -f 2)/yangsuite \
@@ -88,6 +89,7 @@ RUN groupadd --gid 1000 developer \
     && chown -R developer:developer \
         /var/run/ \
         /var/log/ \
+        /certificate \
         ${MEDIA_ROOT} \
         ${STATIC_ROOT} \
         /build-assets/ \

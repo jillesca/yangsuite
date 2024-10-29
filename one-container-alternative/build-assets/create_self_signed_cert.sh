@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Define variables
-CERT_DIR="/build-assets/certs/tmp"
+CERT_DIR="/build-assets/self_signed_certificates/"
 PRIVATE_KEY="$CERT_DIR/private.key"
 CERTIFICATE="$CERT_DIR/certificate.crt"
 DAYS_VALID=1095
