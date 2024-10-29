@@ -2,7 +2,7 @@
 
 This is an alternative way to install YANG Suite using only a single container instead of three.
 
-This alternative is intended for _experimentation_ on a **local machine** and not as a direct replacement of the existing YANG Suite Docker implementation.
+This alternative is intended for _experimentation_ and not as a direct replacement of the existing YANG Suite Docker implementation.
 
 ## Advantages
 
@@ -10,7 +10,7 @@ This alternative is intended for _experimentation_ on a **local machine** and no
 - No user input required. Configuration settings are preset.
 - No Docker Compose needed. Only Docker commands are used.
 - `nginx` server removed.
-- Self-signed (dummy) or user provided certificates can be used.
+- Users can provide their own certificates; otherwise, a self-signed (dummy) certificate will be used.
 
 ## Limitations
 
@@ -71,6 +71,9 @@ Steps to Use Custom Certificates.
 You can pass the environment variables `YS_ADMIN_USER`, `YS_ADMIN_PASS` and `YS_ADMIN_EMAIL`, to do so, adjust the `make build` command, so they are set at build time, and pass them as `build-arg`.
 
 You can watch YANG Suite Front end logs using:
+
+> [!TIP]
+> This is handy when you run along `run`, for example `make run follow`. Use `Ctrl + C` to stop the logs.
 
 ```bash
 make follow
