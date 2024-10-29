@@ -11,6 +11,7 @@ This alternative is intended for _experimentation_ and not as a direct replaceme
 - No Docker Compose needed. Only Docker commands are used.
 - `nginx` server removed.
 - Users can provide their own certificates; otherwise, a self-signed (dummy) certificate will be used.
+- HTTPs only. Port `8480` used.
 
 ## Limitations
 
