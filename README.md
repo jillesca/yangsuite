@@ -45,7 +45,7 @@ To use the resources in this repository, you must install Docker on the system w
 ## Quick Start with Docker:
 
 > [!NOTE]
-> For quick exploring see the `one-container-alternative` directory where you can find an alternative way to install YANG Suite.
+> For quick exploring see the [one-container-alternative](/one-container-alternative/) directory where you can find an alternative way to install YANG Suite.
 
 1. Clone this repository
 
