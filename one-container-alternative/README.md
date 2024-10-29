@@ -18,8 +18,8 @@ This alternative is intended for _experimentation_ and not as a direct replaceme
 
 ## Prerequisites
 
-- Docker
-- Make
+- `Docker`
+- `Make`
 
 ## Build
 
@@ -46,7 +46,7 @@ To start YANG Suite and begin using it, run:
 make run
 ```
 
-Then visit <https://localhost:8480>, accept the EULA, and use `developer/developer` to enter YANG Suite.
+Then visit <https://localhost:8480> (assuming you are running it locally), accept the EULA, and use `developer/developer` to enter YANG Suite.
 
 The named volume `yangsuite-one-container-data` is used to store the YANG Suite `ys-data` directory, where settings and data are stored.
 
@@ -54,7 +54,7 @@ You can also do `make stop` and `make start`, to `stop` and `start` the containe
 
 ## Using Custom Certificates
 
-You can provide your own SSL certificates by creating a `certificate` directory and placing inside it. The [container will look](/one-container-alternative/build-assets/pick_certificate.sh#L5) for `.crt` and `.key` files in this directory. If both files are found, they will be used for HTTPS. If no user-provided certificates are found, the container [will fall back to using self-signed](/one-container-alternative/build-assets/pick_certificate.sh#L21) (dummy) certificates.
+You can provide your own SSL certificates by creating a `certificate` directory and placing your files in it. The [container will look](/one-container-alternative/build-assets/pick_certificate.sh#L5) for `.crt` and `.key` files in this directory. If both files are found, they will be used for `HTTPS`. If no user-provided certificates are found, the container [will fall back to using self-signed](/one-container-alternative/build-assets/pick_certificate.sh#L21) (dummy) certificates.
 
 Steps to Use Custom Certificates.
 
@@ -66,9 +66,11 @@ Steps to Use Custom Certificates.
 
 ## Development
 
-`daphne` is used as `http` server, `twisted` is used for managing the secure communication for YANG Suite front end.
+The `daphne` server handles HTTP requests, while `twisted` manages secure communications for the YANG Suite front end.
 
 You can pass the environment variables `YS_ADMIN_USER`, `YS_ADMIN_PASS` and `YS_ADMIN_EMAIL`, to do so, adjust the `make build` command, so they are set at build time, and pass them as `build-arg`.
+
+## Logs
 
 You can watch YANG Suite Front end logs using:
 
