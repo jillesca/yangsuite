@@ -72,6 +72,7 @@ RUN groupadd --gid 1000 developer \
     && chmod u+s /bin/ping \
     && chmod +x /build-assets/monitor_logs.sh \
     && chmod +x /build-assets/migrate_and_start.sh \
+    && chmod +x /build-assets/start_environment.sh \
     && chmod +x /build-assets/create_self_sign_cert.sh \
     && ./build-assets/create_self_sign_cert.sh \
     && ln -snf /usr/share/zoneinfo/${CONTAINER_TIMEZONE} /etc/localtime \
@@ -94,5 +95,5 @@ RUN groupadd --gid 1000 developer \
 
 USER developer
 
-ENTRYPOINT ["/build-assets/migrate_and_start.sh"]
+ENTRYPOINT ["/build-assets/start_environment.sh"]
 CMD tail -f /dev/null 
