@@ -46,13 +46,14 @@ ARG YS_ADMIN_EMAIL=developer@example.com
 ENV DOCKER_RUN=true \
     MEDIA_ROOT=/ys-data/ \
     STATIC_ROOT=/ys-static/ \
-    DJANGO_ALLOWED_HOSTS=localhost \
+    ALLOWED_HOSTS=localhost \
     YS_ADMIN_USER=${YS_ADMIN_USER} \
     YS_ADMIN_PASS=${YS_ADMIN_PASS} \
     YS_ADMIN_EMAIL=${YS_ADMIN_EMAIL} \
     DJANGO_SETTINGS_MODULE=yangsuite.settings.production
-
-ENV DJANGO_STATIC_ROOT=${STATIC_ROOT} 
+    
+ENV DJANGO_STATIC_ROOT=${STATIC_ROOT} \
+    DJANGO_ALLOWED_HOSTS=${ALLOWED_HOSTS} 
 
 COPY config/build-assets/ /build-assets
 
@@ -68,7 +69,6 @@ RUN groupadd --gid 1000 developer \
     && echo 'alias ll="ls -al"' >> /home/developer/.bashrc \
     && mkdir -p ${MEDIA_ROOT} \
     && mkdir -p ${STATIC_ROOT} \
-    && mkdir -p /var/run/uwsgi/ \
     && chmod u+s /bin/ping \
     && chmod +x /build-assets/monitor_logs.sh \
     && chmod +x /build-assets/migrate_and_start.sh \
@@ -80,7 +80,7 @@ RUN groupadd --gid 1000 developer \
         --configure-only \
         --data-path ${MEDIA_ROOT} \
         --static-root ${STATIC_ROOT} \
-        --allowed-hosts localhost \
+        --allowed-hosts ${ALLOWED_HOSTS} \
         --settings yangsuite.settings.production \
     && chown -R developer:developer \
         /var/run/ \

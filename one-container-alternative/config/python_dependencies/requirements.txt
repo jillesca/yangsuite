@@ -1,6 +1,7 @@
 pip
 setuptools
-uwsgi
+daphne
+twisted[http2,tls]
 wheel
 yangsuite
 yangsuite-coverage

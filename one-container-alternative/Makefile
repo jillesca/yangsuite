@@ -27,8 +27,8 @@ cli:
 
 dev:
 	$(MAKE) rm
-	$(MAKE) rm-volumes
+	$(MAKE) rm-volume
 	$(MAKE) build
 	$(MAKE) run
-	# $(MAKE) follow
-	$(MAKE) debug
+	$(MAKE) follow
+	# $(MAKE) debug
