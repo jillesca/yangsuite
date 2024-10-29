@@ -1,4 +1,4 @@
-Copyright 2022 Cisco Systems, Inc
+Copyright 2024 Cisco Systems, Inc
 
 Cisco YANG Suite
 ==========
@@ -22,6 +22,9 @@ YANG Suite requires about 3.5GB of memory to load large Cisco native models.
 DevNet YANG Suite landing page: [developer.cisco.com/yangsuite](https://developer.cisco.com/yangsuite)
 
 Documentation: [developer.cisco.com/docs/yangsuite](https://developer.cisco.com/docs/yangsuite)
+
+Hands-on [Learning Lab](https://developer.cisco.com/learning/labs/intro-yangsuite/introduction-launching-yang-suite/)
+![](./imgs/learning_lab.png)
 
 [YANG Suite TDM PDF](https://pubhub.devnetcloud.com/media/yang-suite/docs/YANGSuite%20TDM%20-%20Communities.pdf)
 ----------------------------
